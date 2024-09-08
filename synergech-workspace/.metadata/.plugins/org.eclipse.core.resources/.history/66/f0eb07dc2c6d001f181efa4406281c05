@@ -1,0 +1,10 @@
+// => problem 4:
+package methodsAssn;
+
+public class TaxCalculator {
+	public static void main(String[] args) {
+		PerishableGoods pg = new PerishableGoods();
+		System.out.println("persihable goods => " + pg.createSalesTax(245.45, "chennai"));
+		System.out.println("perishable VAT => " + pg.calculateVAT(245.45, "chennai"));
+	}
+}

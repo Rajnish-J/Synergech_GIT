@@ -1,0 +1,29 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class assn_4 {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		System.out.print("Enter the string: ");
+		String ip = sc.next();
+
+//		=>problem 1:
+		System.out.println(ip.charAt(3));
+
+//		=>problem 2:
+		System.out.println(ip.indexOf('l'));
+
+//		=>problem 3:
+		System.out.println(ip.isEmpty());
+
+//		=>problem 4:
+		System.out.println(ip.lastIndexOf('l'));
+
+//		=>problem 5:
+//		=>problem 6:
+//		=>problem 7:
+//		=>problem 8:
+	}
+}

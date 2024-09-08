@@ -1,0 +1,28 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class strObj {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		System.out.print("Enter the first string: ");
+		String str1 = sc.next();
+		System.out.print("Enter the second string: ");
+		String str2 = sc.next();
+
+//		=> problem 1:
+		System.out.println(str1.concat(str2));
+
+//		=> problem 2:
+		System.out.println(str1.equals(str2));
+
+//		=> problem 3:
+		String f3_str1 = str1.substring(0, 2);
+		String l3_str2 = str2.substring(str2.length() - 3, str2.length());
+		System.out.println(l3_str2);
+
+//		=> problem 4:
+		System.out.println("length of the first string: " + str1.length());
+	}
+}

@@ -1,0 +1,5 @@
+package com.demo.geometry;
+import com.demo.shapes.Circle;
+public class Shape {
+Circle c = new Circle();
+}

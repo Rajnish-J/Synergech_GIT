@@ -1,0 +1,21 @@
+package final_assignment;
+
+import java.util.Scanner;
+
+public class assn_1 {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+
+	}
+
+	public static int sum(int num) {
+		int sum = 0;
+		while (num > 0) {
+			int temp = num % 10;
+			sum += temp;
+			num /= 10;
+		}
+		return sum;
+	}
+}

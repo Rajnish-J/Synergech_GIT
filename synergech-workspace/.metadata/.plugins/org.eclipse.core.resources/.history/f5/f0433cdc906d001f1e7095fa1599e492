@@ -1,0 +1,15 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class convertCase {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+//		System.out.print("Enter the String: ");
+//		String ip = sc.nextLine();
+
+		System.out.println('a');
+		System.out.println('A');
+	}
+}

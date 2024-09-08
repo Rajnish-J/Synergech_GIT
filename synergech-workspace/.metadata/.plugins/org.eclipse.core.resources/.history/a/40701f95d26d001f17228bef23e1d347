@@ -1,0 +1,61 @@
+package StringAssn;
+
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class StringFinder {
+	static Scanner sc = new Scanner(System.in);
+
+	// Method 1: Create a new string with only the characters at odd indices
+	public String getOddIndexChars(String input) {
+		StringBuilder result = new StringBuilder();
+		for (int i = 1; i < input.length(); i += 2) { // Start at index 1 for odd indices
+			result.append(input.charAt(i));
+		}
+		return result.toString();
+	}
+
+	// Method 2: Capitalize the first character of each word
+	public String capitalizeFirstChar(String input) {
+		StringTokenizer tokenizer = new StringTokenizer(input, " ");
+		StringBuilder result = new StringBuilder();
+
+		while (tokenizer.hasMoreTokens()) {
+			String word = tokenizer.nextToken();
+			result.append(Character.toUpperCase(word.charAt(0))) // Capitalize first character
+					.append(word.substring(1)) // Append the rest of the word
+					.append(" "); // Add space between words
+		}
+
+		// Remove the trailing space and return
+		return result.toString().trim();
+	}
+
+	// Method 3: Reverse string if its length is odd, otherwise return the original
+	// string
+	public String reverseIfOddLength(String input) {
+		if (input.length() % 2 != 0) {
+			return new StringBuilder(input).reverse().toString();
+		}
+		return input;
+	}
+
+	public static void main(String[] args) {
+		StringFinder finder = new StringFinder();
+
+		// Test Method 1
+		String input1 = "example";
+		System.out.println("Odd index characters: " + finder.getOddIndexChars(input1));
+
+		// Test Method 2
+		String input2 = "hello world this is java";
+		System.out.println("Capitalized first characters: " + finder.capitalizeFirstChar(input2));
+
+		// Test Method 3
+		String input3 = "apple";
+		System.out.println("Reversed or original string: " + finder.reverseIfOddLength(input3));
+
+		String input4 = "java";
+		System.out.println("Reversed or original string: " + finder.reverseIfOddLength(input4));
+	}
+}

@@ -1,0 +1,40 @@
+package final_assignment;
+
+public class EmployeeVO {
+	private String empId;
+	private String empName;
+	private String mobileNumber;
+	private double salary;
+
+	// Constructor to initialize EmployeeVO object
+	public EmployeeVO(String empId, String empName, String mobileNumber, double salary) {
+		this.empId = empId;
+		this.empName = empName;
+		this.mobileNumber = mobileNumber;
+		this.salary = salary;
+	}
+
+	// Getters
+	public String getEmpId() {
+		return empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	// Overriding toString method for easy printing
+	@Override
+	public String toString() {
+		return "EmployeeVO [empId=" + empId + ", empName=" + empName + ", mobileNumber=" + mobileNumber + ", salary="
+				+ salary + "]";
+	}
+}

@@ -1,0 +1,17 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class convertCase {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+//		System.out.print("Enter the String: ");
+//		String ip = sc.nextLine();
+
+		System.out.println((int) ('a'));
+		System.out.println((int) ('A'));
+		System.out.println((int) ('z'));
+		System.out.println((int) ('Z'));
+	}
+}

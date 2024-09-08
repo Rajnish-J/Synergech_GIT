@@ -1,0 +1,55 @@
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class StringTokenizerAssignment {
+
+    // Task 1: Print each word on a separate line
+    public void printWords(String sentence) {
+        StringTokenizer tokenizer = new StringTokenizer(sentence, " ");
+        while (tokenizer.hasMoreTokens()) {
+            System.out.println(tokenizer.nextToken());
+        }
+    }
+
+    // Task 2: Count and print the number of words in the sentence
+    public void countWords(String sentence) {
+        StringTokenizer tokenizer = new StringTokenizer(sentence, " ");
+        System.out.println("Number of words: " + tokenizer.countTokens());
+    }
+
+    // Task 3: Concatenate all tokens that start with a vowel
+    public String concatenateVowelWords(String sentence) {
+        StringTokenizer tokenizer = new StringTokenizer(sentence, "-");
+        StringBuilder result = new StringBuilder();
+        
+        while (tokenizer.hasMoreTokens()) {
+            String word = tokenizer.nextToken();
+            char firstChar = Character.toLowerCase(word.charAt(0));
+            if (firstChar == 'a' || firstChar == 'e' || firstChar == 'i' || firstChar == 'o' || firstChar == 'u') {
+                result.append(word);
+            }
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        StringTokenizerAssignment assignment = new StringTokenizerAssignment();
+        Scanner scanner = new Scanner(System.in);
+
+        // Task 1: Accept sentence and print each word
+        System.out.print("Enter a sentence: ");
+        String sentence1 = scanner.nextLine();
+        assignment.printWords(sentence1);
+
+        // Task 2: Accept sentence and count words
+        System.out.print("\nEnter a sentence to count words: ");
+        String sentence2 = scanner.nextLine();
+        assignment.countWords(sentence2);
+
+        // Task 3: Accept delimited string and concatenate tokens starting with a vowel
+        System.out.print("\nEnter a delimited string (using '-'): ");
+        String delimitedSentence = scanner.nextLine();
+        String result = assignment.concatenateVowelWords(delimitedSentence);
+        System.out.println("Concatenated words starting with a vowel: " + result);
+    }
+}

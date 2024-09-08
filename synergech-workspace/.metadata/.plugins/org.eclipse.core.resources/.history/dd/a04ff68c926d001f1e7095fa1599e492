@@ -1,0 +1,52 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class convertCase {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+
+        // Accept a sentence from the user
+        System.out.print("Enter a sentence: ");
+        String input = sc.nextLine();
+
+        // Convert the case of each character and store the result
+        String result = convertCase(input);
+
+        // Display the converted sentence
+        System.out.println("Converted sentence: " + result);
+
+        sc.close();
+    }
+
+    // Method to convert the case of each character
+    public static String convertCase(String str) {
+        StringBuilder convertedString = new StringBuilder();
+
+        // Loop through each character in the input string
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            // Check if the character is uppercase, convert to lowercase
+            if (Character.isUpperCase(ch)) {
+                convertedString.append(Character.toLowerCase(ch));
+            }
+            // Check if the character is lowercase, convert to uppercase
+            else if (Character.isLowerCase(ch)) {
+                convertedString.append(Character.toUpperCase(ch));
+            }
+            // If it's neither, append the character as it is (spaces, punctuation, etc.)
+            else {
+                convertedString.append(ch);
+            }
+        }
+
+        // Return the converted string
+        return convertedString.toString();
+    }
+
+	}
+}

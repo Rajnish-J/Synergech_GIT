@@ -1,0 +1,12 @@
+package methodsAssn;
+
+public class Goods {
+	
+//	=>problem 1:
+	public static void calculateVAT(double price, String city) {
+		
+	}
+	
+//	=>problem 2:
+	
+}

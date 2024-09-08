@@ -1,0 +1,26 @@
+package StringAssn;
+
+public class StudentManager {
+	public static void main(String[] args) {
+		Student s = new Student();
+		s.setStudentId(10);
+		Student s1 = new Student();
+		s.setStudentId(10);
+
+		System.out.println("message 1 =>" + s.equals(s1));
+
+		System.out.println("message 2 =>" + s.hashCode());
+
+		System.out.println("message 3 =>" + s1.hashCode());
+
+		System.out.println("message 4 =>" + (s == s1));
+
+		System.out.println("message 5 =>");
+
+		System.out.println("message 6 =>");
+
+		System.out.println("message 7 =>");
+
+		System.out.println("message 8 =>");
+	}
+}

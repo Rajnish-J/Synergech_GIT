@@ -1,0 +1,15 @@
+package wrapper_assn;
+
+public class floatWrapper {
+	public static void main(String[] args) {
+		float f1 = 123.45f;
+		float f2 = 148.65f;
+
+//	=> 
+		Float o1 = f1;
+		Float o2 = f2;
+		System.out.println(o1);
+		System.out.println(o2);
+
+	}
+}

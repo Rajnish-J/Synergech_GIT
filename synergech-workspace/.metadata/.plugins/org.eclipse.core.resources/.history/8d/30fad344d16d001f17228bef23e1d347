@@ -1,0 +1,25 @@
+package StringAssn;
+
+import java.util.Scanner;
+
+public class StringFinder {
+	static Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) {
+
+	}
+
+	public static void method1() {
+		System.out.print("Enter the String: ");
+		String ip = sc.next();
+		StringBuilder sb1 = new StringBuilder();
+		
+		for(int i = 0; i<ip.length(); i++) {
+			if(i % 2 == 0) {
+				continue;
+			}
+			else {
+				sb1.append(ip.charAt(i));
+			}
+		}
+	}
+}

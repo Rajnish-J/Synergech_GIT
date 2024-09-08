@@ -1,0 +1,8 @@
+package com.demo.shapes;
+
+public class Circle {
+float radius;
+public Circle() {
+	
+}
+}

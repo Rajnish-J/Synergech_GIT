@@ -1,0 +1,24 @@
+package arraysAssn;
+
+import java.util.Scanner;
+
+public class assn_1 {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		int[] A = new int[50];
+		int counter = 0;
+		int incrementer = 1;
+
+		while (counter < 50) {
+			if (incrementer % 3 == 0) {
+				A[counter] = incrementer;
+				counter++;
+			}
+			incrementer++;
+		}
+		for (int obj : A) {
+			System.out.print(obj + " ");
+		}
+	}
+}
