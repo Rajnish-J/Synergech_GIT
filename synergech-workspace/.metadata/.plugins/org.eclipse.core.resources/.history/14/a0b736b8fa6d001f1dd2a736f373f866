@@ -1,0 +1,75 @@
+package final_assignment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BulkEmployeeDetailProcessor {
+
+	public static void processEmployee(String employeeRecords) {
+		String[] records = employeeRecords.split("\\$"); // Split using dollar sign
+		List<EmployeeVO1> validEmployees = new ArrayList<>();
+		List<String> errorRecords = new ArrayList<>();
+
+		for (String record : records) {
+			String[] fields = record.split("\\|"); // Split each record by the pipe symbol
+			if (fields.length != 4) {
+				errorRecords.add(record + " - Invalid Record Format");
+				continue;
+			}
+
+			String empId = fields[0];
+			String empName = fields[1];
+			String mobileNumber = fields[2];
+			double salary;
+			try {
+				salary = Double.parseDouble(fields[3]);
+			} catch (NumberFormatException e) {
+				errorRecords.add(record + " - Invalid Salary Format");
+				continue;
+			}
+
+			// Validate mobile number
+			if (mobileNumber.length() != 10 || !mobileNumber.matches("\\d+")) {
+				errorRecords.add(record + " - Invalid Mobile Number");
+				continue;
+			}
+
+			// Validate empId and salary
+			if (empId.startsWith("DE")) {
+				if (salary > 20000) {
+					errorRecords.add(record + " - Salary exceeds limit for DE employees");
+					continue;
+				}
+			} else if (empId.startsWith("MA")) {
+				if (salary < 20000 || salary > 80000) {
+					errorRecords.add(record + " - Invalid Salary Range for MA employees");
+					continue;
+				}
+			} else {
+				errorRecords.add(record + " - Invalid Employee ID");
+				continue;
+			}
+
+			validEmployees.add(new EmployeeVO1(empId, empName, mobileNumber, salary));
+		}
+
+		System.out.println("Valid Employees:");
+		System.out.printf("%-10s %-15s %-12s %-10s%n", "EmpID", "EmpName", "Mobile", "Salary");
+		for (EmployeeVO1 emp : validEmployees) {
+			System.out.println(emp);
+		}
+
+		if (!errorRecords.isEmpty()) {
+			System.out.println("\nError Records:");
+			for (String error : errorRecords) {
+				System.out.println(error);
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		String employeeData = "DE123|John Doe|9876543210|15000$MA234|Jane Smith|9123456789|50000$DE345|Alice|9998887776|25000$MA456|Bob|1234567890|85000$XX123|Invalid Emp|9991234567|30000";
+		processEmployee(employeeData);
+	}
+}
