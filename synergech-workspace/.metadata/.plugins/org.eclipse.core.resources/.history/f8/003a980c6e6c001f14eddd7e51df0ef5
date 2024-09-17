@@ -1,8 +1,0 @@
-package com.demo.tax;
-
-public class IncomeTaxCalculator {
-	
-	float basicPay;
-	boolean citizenship;
-
-}

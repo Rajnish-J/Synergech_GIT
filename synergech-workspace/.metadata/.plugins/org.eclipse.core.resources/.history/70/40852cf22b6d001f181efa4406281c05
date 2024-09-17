@@ -1,9 +1,0 @@
-// => problem 4:
-package methodsAssn;
-
-public class TaxCalculator {
-public static void main(String[] args) {
-	PerishableGoods pg = new PerishableGoods();
-	pg.createSalesTax(245.45, "chennai");
-}
-}

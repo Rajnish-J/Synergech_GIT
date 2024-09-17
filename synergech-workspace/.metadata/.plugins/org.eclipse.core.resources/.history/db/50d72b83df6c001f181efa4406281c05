@@ -1,9 +1,0 @@
-package wrapper_assn;
-
-public class charWrapper {
-	public static void main(String[] args) {
-//	=>problem 1:
-		Character c1 = 'b';
-		System.out.println("uppercase object: " + c1.toUpperCase(c1));
-	}
-}
