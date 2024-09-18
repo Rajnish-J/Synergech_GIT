@@ -1,7 +1,0 @@
-package arraysAssn;
-
-public class assn_2 {
-	public static void main(String[] args) {
-		int[][] A = { { 1, 4, 5 }, { 2, 1, 2 }, { 4, 5, 3 } };
-	}
-}

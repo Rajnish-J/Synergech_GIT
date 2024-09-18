@@ -1,7 +1,0 @@
-package arraysAssn;
-
-import java.util.*;
-
-public class assn_1 {
-static Scanner sc = new Scanner(System.in);
-}
