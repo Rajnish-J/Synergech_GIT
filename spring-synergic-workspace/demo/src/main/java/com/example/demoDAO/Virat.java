@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-
 public class Virat implements I_IndianTeam{
-
+	
+	@Override
 	public void ODIHundreds() {
 		System.out.println("50 Internationl ODI Centuries....");
 	}
