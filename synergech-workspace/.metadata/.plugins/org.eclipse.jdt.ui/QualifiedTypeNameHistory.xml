@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
-    <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
-    <fullyQualifiedTypeName name="Abstract.InterestCalculator"/>
-    <fullyQualifiedTypeName name="Abstract.simpleInterestCalculator"/>
-    <fullyQualifiedTypeName name="Abstract.compountInterestCalculator"/>
-    <fullyQualifiedTypeName name="Interface.Kidusers"/>
-    <fullyQualifiedTypeName name="Interface.LibraryUser"/>
-    <fullyQualifiedTypeName name="Interface.AdultUsers"/>
-    <fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthOptionPaneUI"/>
-    <fullyQualifiedTypeName name="demo.operators"/>
-    <fullyQualifiedTypeName name="int"/>
-    <fullyQualifiedTypeName name="java.lang.ArrayIndexOutOfBoundsException"/>
-    <fullyQualifiedTypeName name="ExceptionHandling.ExceptionDemo"/>
-    <fullyQualifiedTypeName name="ExceptionHandling.CountryNotValidException"/>
-    <fullyQualifiedTypeName name="ExceptionHandling.EmployeeNameInvalidException"/>
-    <fullyQualifiedTypeName name="ExceptionHandling.TaxNotEligibleException"/>
     <fullyQualifiedTypeName name="arrayList.ArrayListDemo"/>
     <fullyQualifiedTypeName name="arrayList.EvenNumberGenerator"/>
     <fullyQualifiedTypeName name="CollectionFramework.Employee"/>
@@ -26,10 +10,8 @@
     <fullyQualifiedTypeName name="CollectionFramework.SetDemo"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
     <fullyQualifiedTypeName name="CollectionFramework.MapDemo"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="JDBC.AccountDAO"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
     <fullyQualifiedTypeName name="JDBC.AccountMain"/>
     <fullyQualifiedTypeName name="JDBC.AccountVO"/>
@@ -42,7 +24,6 @@
     <fullyQualifiedTypeName name="FunctionalInterface.ICalculator"/>
     <fullyQualifiedTypeName name="FunctionalInterface.INumberGenerator"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="java.lang.Character"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.IntSummaryStatistics"/>
@@ -52,12 +33,31 @@
     <fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
     <fullyQualifiedTypeName name="MethodReferences.JavaMethodReference"/>
     <fullyQualifiedTypeName name="org.xml.sax.SAXException"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.StringJoiner"/>
     <fullyQualifiedTypeName name="CUI.exception.DateException"/>
     <fullyQualifiedTypeName name="CUI.exception.MobileException"/>
     <fullyQualifiedTypeName name="javax.security.auth.login.AccountException"/>
+    <fullyQualifiedTypeName name="exception.AccountException"/>
+    <fullyQualifiedTypeName name="com.Appointment.Main.main"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.PatientNotFoundException"/>
+    <fullyQualifiedTypeName name="com.Appointment.DAO.IPatientDAO"/>
+    <fullyQualifiedTypeName name="com.Appointment.DAO.patientDAO"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.phoneNumberException"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.EmailException"/>
+    <fullyQualifiedTypeName name="java.lang.Character"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.PasswordException"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.AccountcreationException"/>
+    <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
-    <fullyQualifiedTypeName name="exception.AccountException"/>
+    <fullyQualifiedTypeName name="com.Appointment.customExceptions.UpdateException"/>
+    <fullyQualifiedTypeName name="com.Appointment.BO.patientBO"/>
+    <fullyQualifiedTypeName name="com.Appointment.service.patientService"/>
+    <fullyQualifiedTypeName name="com.Appointment.VO.PatientVO"/>
 </qualifiedTypeNameHistroy>

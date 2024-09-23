@@ -14,8 +14,8 @@ public class DemoApplication {
 		ApplicationContext ctx = SpringApplication.run(DemoApplication.class, args);
 		System.out.println("Hi this is the first output from Spring project");
 		
-		IndiaBO bo = (IndiaBO)ctx.getBean(IndiaBO.class);
-		bo.print();
+		IndiaBO bo = ctx.getBean(IndiaBO.class);
+		bo.display();
 		
 	}
 

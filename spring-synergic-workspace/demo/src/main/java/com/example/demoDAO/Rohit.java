@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-//@Qualifier(value = "abc")
 public class Rohit implements I_IndianTeam{
 
 	@Override
