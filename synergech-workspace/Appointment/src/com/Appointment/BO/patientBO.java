@@ -25,9 +25,9 @@ public class patientBO {
 //	=> save patient method : BO
 	public boolean savePatientDetails(PatientVO vo)
 			throws SQLException, PatientNotFoundException, phoneNumberException, EmailException, PasswordException {
-		validatePhoneNumber(vo.getP_phone());
-		validateEmail(vo.getP_email());
-		validatePassword(vo.getP_password());
+//		validatePhoneNumber(vo.getP_phone());
+//		validateEmail(vo.getP_email());
+//		validatePassword(vo.getP_password());
 		boolean flag = pDAO.savePatientDetails(vo);
 
 		return flag;
@@ -82,14 +82,15 @@ public class patientBO {
 				splchar++;
 			}
 
-			if (capitalcase == 1 && smallcase == 1 && splchar == 1) {
+			if (capitalcase >= 1 && smallcase >= 1 && splchar >= 1) {
 				break;
 			}
 		}
 
-		if (!(smallcase > 1 && capitalcase > 1 && splchar > 1 && pass.length() == 10)) {
+		if (!(smallcase < 1 && capitalcase < 1 && splchar < 1)) {
 			throw new PasswordException("Enter the password which satisfies for above conditions");
 		}
+
 	}
 
 }
