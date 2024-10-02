@@ -28,4 +28,10 @@ public interface patientRepo extends JpaRepository<patientVO, Long> {
 			+ "FROM patientVO p WHERE p.patientId = :patientId")
 	PatientProjection findNameOfPatientById(@Param("patientId") Long patientId);
 
+	@Query(name = "appointmentsVO.findByDOBRange")
+	List<patientVO> fetchBetweenDOBpat(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+	@Query(name = "patientVO.findAllOrderedByAttendance")
+	List<patientVO> fetchAscending();
+
 }

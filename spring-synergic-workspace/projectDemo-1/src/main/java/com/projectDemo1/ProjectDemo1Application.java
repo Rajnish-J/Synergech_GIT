@@ -38,7 +38,8 @@ public class ProjectDemo1Application {
 		do {
 			System.out.println("1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. "
 					+ "Fetch patient by phone number\n7. fetch appointments by the date\n8. Fetch appointments having more than number\n9. "
-					+ "Find first and last name by patient ID\n10. exit");
+					+ "Find first and last name by patient ID\n10. Fetch the appointments between two date\n11. Get the patients in "
+					+ "Ascending order\n12. exit");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
 			switch (option) {
@@ -87,9 +88,30 @@ public class ProjectDemo1Application {
 				break;
 			}
 			case 10: {
+				System.out.print("Enter the Start Date in the format (YYYY-MM-DD): ");
+				String start_date = sc.next();
+				System.out.print("Enter the End Date in the format (YYYY-MM-DD): ");
+				String end_date = sc.next();
+				DateTimeFormatter format_appt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				LocalDate started_date = LocalDate.parse(start_date, format_appt);
+				LocalDate ended_date = LocalDate.parse(end_date, format_appt);
+
+				ref.betweenTwoApptDay(started_date, ended_date);
+				break;
+
+			}
+			case 11: {
+				ref.ascending();
+				break;
+
+			}
+			case 12: {
 				repeat = false;
 				System.out.println("Thank you for Using the application");
 				break;
+			}
+			default: {
+				System.out.println("Enter the correct option");
 			}
 			}
 		} while (repeat);
@@ -249,6 +271,21 @@ public class ProjectDemo1Application {
 		response = pService.findName(id);
 		System.out.println(
 				"First name: " + response.getPro().getFirstName() + " Second name: " + response.getPro().getLastName());
+	}
+
+	// Appointment by between two days:
+	public void betweenTwoApptDay(LocalDate sd, LocalDate ld) {
+		response = pService.betweenTwoDOBpat(sd, ld);
+		System.out.println(response.getListpatient());
+
+	}
+
+	// ascending order:
+	public void ascending() {
+		response = pService.acending();
+		for (patientVO obj : response.getListpatient()) {
+			System.out.println(obj);
+		}
 	}
 
 }

@@ -72,4 +72,17 @@ public class patientBO {
 		return po;
 	}
 
+	// Appointment by between two days:
+	public List<patientVO> betweenTwoDOBpat(LocalDate sd, LocalDate ld) {
+		List<patientVO> list = patientRepo.fetchBetweenDOBpat(sd, ld);
+		return list;
+	}
+
+	// ascending order:
+	public List<patientVO> ascending() {
+		List<patientVO> list = patientRepo.fetchAscending();
+		return list;
+
+	}
+
 }

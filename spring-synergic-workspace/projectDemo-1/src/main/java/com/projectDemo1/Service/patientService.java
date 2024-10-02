@@ -115,4 +115,18 @@ public class patientService {
 		response.setPro(p);
 		return response;
 	}
+
+	// Appointment by between two days:
+	public ResponseHandle betweenTwoDOBpat(LocalDate sd, LocalDate ld) {
+		List<patientVO> list = patientBO.betweenTwoDOBpat(sd, ld);
+		response.setListpatient(list);
+		return response;
+	}
+
+	// ascending order:
+	public ResponseHandle acending() {
+		List<patientVO> list = patientBO.ascending();
+		response.setListpatient(list);
+		return response;
+	}
 }
