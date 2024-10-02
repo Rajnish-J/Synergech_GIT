@@ -87,7 +87,6 @@ public class patientService {
 	}
 
 	// find by patient phone number:
-	@Transactional
 	public ResponseHandle findbyphone(String ph) {
 		patientVO vo = patientBO.fetchbyPhoneNumber(ph);
 		response.setPatient(vo);

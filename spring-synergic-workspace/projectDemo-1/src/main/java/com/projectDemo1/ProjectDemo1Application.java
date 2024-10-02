@@ -38,7 +38,7 @@ public class ProjectDemo1Application {
 		do {
 			System.out.println("1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. "
 					+ "Fetch patient by phone number\n7. fetch appointments by the date\n8. Fetch appointments having more than number\n9. "
-					+ "Find first and last name by patient ID\n10. Fetch the appointments between two date\n11. Get the patients in "
+					+ "Find first and last name by patient ID\n10. Fetch all the patient details among the two date\n11. Get the patients in "
 					+ "Ascending order\n12. exit");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
@@ -68,7 +68,9 @@ public class ProjectDemo1Application {
 				break;
 			}
 			case 6: {
-				ref.fetchbyPhone("9176960600");
+				System.out.print("Enter the patient phone number to fetch patient ID: ");
+				String ph = sc.next();
+				ref.fetchbyPhone(ph);
 				break;
 			}
 			case 7: {
@@ -96,7 +98,7 @@ public class ProjectDemo1Application {
 				LocalDate started_date = LocalDate.parse(start_date, format_appt);
 				LocalDate ended_date = LocalDate.parse(end_date, format_appt);
 
-				ref.betweenTwoApptDay(started_date, ended_date);
+				ref.betweenTwoDOBpat(started_date, ended_date);
 				break;
 
 			}
@@ -274,7 +276,7 @@ public class ProjectDemo1Application {
 	}
 
 	// Appointment by between two days:
-	public void betweenTwoApptDay(LocalDate sd, LocalDate ld) {
+	public void betweenTwoDOBpat(LocalDate sd, LocalDate ld) {
 		response = pService.betweenTwoDOBpat(sd, ld);
 		System.out.println(response.getListpatient());
 

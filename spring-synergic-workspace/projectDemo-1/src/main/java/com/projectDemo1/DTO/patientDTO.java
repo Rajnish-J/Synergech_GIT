@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projectDemo1.Entity.appointmentsVO;
 
 @Component
@@ -13,6 +14,7 @@ public class patientDTO {
 	private Long patientId;
 	private String firstName;
 	private String lastName;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	private String PatientPhone;
 	private String PatientEmail;
