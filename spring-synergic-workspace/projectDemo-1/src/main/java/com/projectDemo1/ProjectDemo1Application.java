@@ -37,7 +37,8 @@ public class ProjectDemo1Application {
 		boolean repeat = true;
 		do {
 			System.out.println("1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. "
-					+ "Fetch patient by phone number\n7. fetch appointments by the date\n8. Fetch appointments having more than number\n10. exit");
+					+ "Fetch patient by phone number\n7. fetch appointments by the date\n8. Fetch appointments having more than number\n9. "
+					+ "Find first and last name by patient ID\n10. exit");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
 			switch (option) {
@@ -77,6 +78,12 @@ public class ProjectDemo1Application {
 				System.out.println("Enter the number that fetches patient having more appoinments than the number: ");
 				long n = sc.nextLong();
 				ref.fetchAppointmentbynumber(n);
+				break;
+			}
+			case 9: {
+				System.out.println("Enter the patient ID: ");
+				long n = sc.nextLong();
+				ref.findName(n);
 				break;
 			}
 			case 10: {
@@ -235,6 +242,13 @@ public class ProjectDemo1Application {
 		response = pService.findAppointmentsByNumber(n);
 		System.out.println("The users have more than appointments by given: ");
 		System.out.println(response.getListpatient());
+	}
+
+	// fetch first name and last name:
+	public void findName(long id) {
+		response = pService.findName(id);
+		System.out.println(
+				"First name: " + response.getPro().getFirstName() + " Second name: " + response.getPro().getLastName());
 	}
 
 }

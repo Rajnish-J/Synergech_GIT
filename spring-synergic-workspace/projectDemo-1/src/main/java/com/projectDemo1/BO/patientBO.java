@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.DAO.patientRepo;
 import com.projectDemo1.Entity.patientVO;
 
@@ -63,6 +64,12 @@ public class patientBO {
 	public List<patientVO> fetchappointByNumber(long n) {
 		List<patientVO> list = patientRepo.findPatientsWithMoreThanNAppointments(n);
 		return list;
+	}
+
+	// fetch first name and last name:
+	public PatientProjection findname(long n) {
+		PatientProjection po = patientRepo.findNameOfPatientById(n);
+		return po;
 	}
 
 }

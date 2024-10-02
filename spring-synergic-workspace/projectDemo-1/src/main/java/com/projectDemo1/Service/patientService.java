@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projectDemo1.BO.patientBO;
+import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.customExceptions.patientException;
@@ -108,4 +109,10 @@ public class patientService {
 		return response;
 	}
 
+	// fetch first name and last name:
+	public ResponseHandle findName(long n) {
+		PatientProjection p = patientBO.findname(n);
+		response.setPro(p);
+		return response;
+	}
 }

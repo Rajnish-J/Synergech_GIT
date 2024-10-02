@@ -16,6 +16,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -24,6 +26,7 @@ import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "Patients")
 @EntityListeners(AuditingEntityListener.class)
+@NamedQueries({ @NamedQuery(name = "", query = ""), @NamedQuery(name = "", query = "") })
 public class patientVO {
 
 	@Id

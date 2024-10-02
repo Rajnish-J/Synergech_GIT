@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.Entity.patientVO;
 
 @Component
@@ -14,6 +15,15 @@ public class ResponseHandle {
 	private patientVO patient;
 	private List<patientVO> Listpatient;
 	private String phone;
+	private PatientProjection pro;
+
+	public PatientProjection getPro() {
+		return pro;
+	}
+
+	public void setPro(PatientProjection pro) {
+		this.pro = pro;
+	}
 
 	public String getPhone() {
 		return phone;

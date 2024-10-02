@@ -24,4 +24,8 @@ public interface patientRepo extends JpaRepository<patientVO, Long> {
 	@Query("SELECT p FROM patientVO p WHERE (SELECT COUNT(a) FROM appointmentsVO a WHERE a.patient.patientId = p.patientId) > :appointmentCount")
 	List<patientVO> findPatientsWithMoreThanNAppointments(@Param("appointmentCount") Long appointmentCount);
 
+	@Query("SELECT p.patientId AS patientId, p.firstName AS firstName, p.lastName AS lastName "
+			+ "FROM patientVO p WHERE p.patientId = :patientId")
+	PatientProjection findNameOfPatientById(@Param("patientId") Long patientId);
+
 }
