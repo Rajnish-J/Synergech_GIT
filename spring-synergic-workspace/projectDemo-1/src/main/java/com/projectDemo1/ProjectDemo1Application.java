@@ -37,7 +37,7 @@ public class ProjectDemo1Application {
 		boolean repeat = true;
 		do {
 			System.out.println(
-					"1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. Exit");
+					"1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. Fetch patient by phone number\n7. ");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
 			switch (option) {
@@ -65,6 +65,10 @@ public class ProjectDemo1Application {
 				ref.AssociatePatientwithAppointment();
 			}
 			case 6: {
+
+				ref.fetchbyPhone("9176960600");
+			}
+			case 10: {
 				repeat = false;
 				System.out.println("Thank you for Using the application");
 				break;
@@ -195,6 +199,12 @@ public class ProjectDemo1Application {
 			System.out.println(response.getFailuremessage());
 		}
 
+	}
+
+	// fetch by phone number
+	public void fetchbyPhone(String ph) {
+		response = pService.findbyphone(ph);
+		System.out.println(response.getPatient());
 	}
 
 }

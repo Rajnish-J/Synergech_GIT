@@ -13,6 +13,15 @@ public class ResponseHandle {
 	private long id;
 	private patientVO patient;
 	private List<patientVO> Listpatient;
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public String getSucessmessage() {
 		return Sucessmessage;

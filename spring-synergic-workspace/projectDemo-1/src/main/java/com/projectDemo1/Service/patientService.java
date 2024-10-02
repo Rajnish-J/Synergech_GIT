@@ -8,6 +8,8 @@ import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.customExceptions.patientException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class patientService {
 	@Autowired
@@ -20,6 +22,7 @@ public class patientService {
 	private ResponseHandle response;
 
 	// insert method
+	@Transactional
 	public ResponseHandle insertPatientDetails(patientVO vo) throws patientException {
 		Long flag = patientBO.insertPatientDetails(vo);
 		if (flag > 0) {
@@ -32,6 +35,7 @@ public class patientService {
 	}
 
 	// find by Id method:
+	@Transactional
 	public ResponseHandle fetchById(long id) throws patientException {
 		patientVO ret = patientBO.fetchByID(id);
 		if (ret == null) {
@@ -43,12 +47,14 @@ public class patientService {
 	}
 
 	// fetch all method:
+	@Transactional
 	public ResponseHandle fetchAll() {
 		response.setListpatient(patientBO.fetchAll());
 		return response;
 	}
 
 	// update method
+	@Transactional
 	public ResponseHandle updatePatientDetails(long id) throws patientException {
 		boolean flag = patientBO.updatePatientDetails(id);
 		if (flag) {
@@ -60,6 +66,8 @@ public class patientService {
 		return response;
 	}
 
+	// Associate method:
+	@Transactional
 	public ResponseHandle associate(patientVO vo) {
 		patientVO inserted = patientBO.Associate(vo);
 		long id = inserted.getPatientId();
@@ -72,6 +80,15 @@ public class patientService {
 		}
 
 		return response;
+	}
+
+	// find by patient phone number:
+	@Transactional
+	public ResponseHandle findbyphone(String ph) {
+		patientVO vo = patientBO.fetchbyPhoneNumber(ph);
+		response.setPatient(vo);
+		return response;
 
 	}
+
 }

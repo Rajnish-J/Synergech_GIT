@@ -45,4 +45,11 @@ public class patientBO {
 		patientVO insert = patientRepo.save(vo);
 		return insert;
 	}
+
+	// fetch patient by phone number:
+	public patientVO fetchbyPhoneNumber(String ph) {
+		patientVO vo = patientRepo.findByPhoneNumber(ph);
+		return vo;
+	}
+
 }
