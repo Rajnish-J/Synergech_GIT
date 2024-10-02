@@ -59,4 +59,10 @@ public class patientBO {
 		return list;
 	}
 
+	// fetch by more appointments
+	public List<patientVO> fetchappointByNumber(long n) {
+		List<patientVO> list = patientRepo.findPatientsWithMoreThanNAppointments(n);
+		return list;
+	}
+
 }

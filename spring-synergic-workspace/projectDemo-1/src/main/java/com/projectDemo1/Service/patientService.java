@@ -101,4 +101,11 @@ public class patientService {
 		return response;
 	}
 
+	// fetch by more appointments
+	public ResponseHandle findAppointmentsByNumber(long n) {
+		List<patientVO> list = patientBO.fetchappointByNumber(n);
+		response.setListpatient(list);
+		return response;
+	}
+
 }

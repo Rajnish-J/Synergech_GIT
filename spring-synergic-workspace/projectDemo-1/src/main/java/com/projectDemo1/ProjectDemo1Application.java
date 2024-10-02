@@ -36,8 +36,8 @@ public class ProjectDemo1Application {
 
 		boolean repeat = true;
 		do {
-			System.out.println(
-					"1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. Fetch patient by phone number\n7. Today appointments\n10. exit");
+			System.out.println("1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. "
+					+ "Fetch patient by phone number\n7. fetch appointments by the date\n8. Fetch appointments having more than number\n10. exit");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
 			switch (option) {
@@ -63,13 +63,20 @@ public class ProjectDemo1Application {
 			}
 			case 5: {
 				ref.AssociatePatientwithAppointment();
+				break;
 			}
 			case 6: {
-
 				ref.fetchbyPhone("9176960600");
+				break;
 			}
 			case 7: {
 				ref.fetchapptday();
+				break;
+			}
+			case 8: {
+				System.out.println("Enter the number that fetches patient having more appoinments than the number: ");
+				long n = sc.nextLong();
+				ref.fetchAppointmentbynumber(n);
 				break;
 			}
 			case 10: {
@@ -220,6 +227,13 @@ public class ProjectDemo1Application {
 		LocalDate day = LocalDate.parse(date, format);
 
 		response = pService.findapptDay(day);
+		System.out.println(response.getListpatient());
+	}
+
+	// fetch by more appointments
+	public void fetchAppointmentbynumber(long n) {
+		response = pService.findAppointmentsByNumber(n);
+		System.out.println("The users have more than appointments by given: ");
 		System.out.println(response.getListpatient());
 	}
 
