@@ -1,5 +1,6 @@
 package com.projectDemo1.BO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,12 @@ public class patientBO {
 	public patientVO fetchbyPhoneNumber(String ph) {
 		patientVO vo = patientRepo.findByPhoneNumber(ph);
 		return vo;
+	}
+
+	// fetch by day appointments:
+	public List<patientVO> fetchapptDay(LocalDate td) {
+		List<patientVO> list = patientRepo.findPatientsWithAppointmentsDay(td);
+		return list;
 	}
 
 }

@@ -37,7 +37,7 @@ public class ProjectDemo1Application {
 		boolean repeat = true;
 		do {
 			System.out.println(
-					"1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. Fetch patient by phone number\n7. ");
+					"1. Save Patient\n2. FindByID\n3. FetchAllPatients\n4. Update Details\n5. Associate\n6. Fetch patient by phone number\n7. Today appointments\n10. exit");
 			System.out.print("Enter the option: ");
 			int option = sc.nextInt();
 			switch (option) {
@@ -67,6 +67,10 @@ public class ProjectDemo1Application {
 			case 6: {
 
 				ref.fetchbyPhone("9176960600");
+			}
+			case 7: {
+				ref.fetchapptday();
+				break;
 			}
 			case 10: {
 				repeat = false;
@@ -205,6 +209,18 @@ public class ProjectDemo1Application {
 	public void fetchbyPhone(String ph) {
 		response = pService.findbyphone(ph);
 		System.out.println(response.getPatient());
+	}
+
+	// fetch today appointments
+	public void fetchapptday() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the date in the format (YYYY-MM-DD): ");
+		String date = sc.next();
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate day = LocalDate.parse(date, format);
+
+		response = pService.findapptDay(day);
+		System.out.println(response.getListpatient());
 	}
 
 }

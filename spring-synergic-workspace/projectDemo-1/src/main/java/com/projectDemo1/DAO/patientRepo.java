@@ -1,5 +1,8 @@
 package com.projectDemo1.DAO;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +16,9 @@ public interface patientRepo extends JpaRepository<patientVO, Long> {
 	// fetch by phone number
 	@Query("SELECT p FROM patientVO p WHERE p.PatientPhone = :phone")
 	patientVO findByPhoneNumber(@Param("phone") String phone);
+
+	// fetching patient who all are having appointments today:
+	@Query("SELECT p FROM patientVO p JOIN p.appointments a WHERE a.appointmentDate = :today")
+	List<patientVO> findPatientsWithAppointmentsDay(@Param("today") LocalDate today);
 
 }

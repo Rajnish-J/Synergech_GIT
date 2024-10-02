@@ -1,5 +1,8 @@
 package com.projectDemo1.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +92,13 @@ public class patientService {
 		response.setPatient(vo);
 		return response;
 
+	}
+
+	// fetch by day appointments:
+	public ResponseHandle findapptDay(LocalDate td) {
+		List<patientVO> vo = patientBO.fetchapptDay(td);
+		response.setListpatient(vo);
+		return response;
 	}
 
 }
