@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectDemo1.DTO.patientDTO;
+import com.projectDemo1.Entity.appointmentsVO;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.Service.patientService;
+import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.EmailException;
+import com.projectDemo1.customExceptions.IdException;
+import com.projectDemo1.customExceptions.PasswordException;
+import com.projectDemo1.customExceptions.PhoneNumberException;
+import com.projectDemo1.customExceptions.patientException;
 
 @RestController
 @RequestMapping("/patient")
@@ -28,10 +37,9 @@ public class patientController {
 	@Autowired
 	private ResponseHandle res;
 
-	// need to check
 	// insert:
 	@PostMapping("/insert")
-	public patientVO insertPatient(@RequestBody patientDTO dto) {
+	public ResponseEntity<?> insertPatient(@RequestBody patientDTO dto) {
 
 		// converting DTO to entity
 		patientVO vo = new patientVO();
@@ -42,21 +50,34 @@ public class patientController {
 		vo.setPatientPhone(dto.getPatientPhone());
 		vo.setDob(dto.getDob());
 
-		res = pservice.insertPatientDetails(vo);
-		patientVO inserted = res.getPatient();
-		dto.setUpdatedAt(inserted.getUpdatedAt());
-		dto.setCreatedAt(inserted.getCreatedAt());
-		dto.setPatientId(inserted.getPatientId());
-		return inserted;
+		try {
+			res = pservice.insertPatientDetails(vo);
+			dto.setUpdatedAt(res.getPatient().getUpdatedAt());
+			dto.setCreatedAt(res.getPatient().getCreatedAt());
+			dto.setPatientId(res.getPatient().getPatientId());
+			return ResponseEntity.ok("Patient Details successfully save" + res.getPatient().getPatientId());
+		} catch (patientException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (PhoneNumberException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (EmailException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (PasswordException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 
 	}
 
-	// done
 	// fetch by id:
 	@GetMapping("patientId/{id}")
-	public patientDTO findBypatientId(@PathVariable("id") long id) {
-		res = pservice.fetchById(id);
-		return mapToDTO(res.getPatient());
+	public ResponseEntity<?> findBypatientId(@PathVariable("id") long id) {
+		try {
+			res = pservice.fetchById(id);
+			return ResponseEntity.ok("Patient Details Fetched by ID:");
+		} catch (IdException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 
 	// done
@@ -76,20 +97,69 @@ public class patientController {
 
 	}
 
-	// need to check
+	// done
 	// update method
-	@PutMapping("update/{id}")
-	public patientDTO fetchpatientDetails(@RequestBody long id) {
-		res = pservice.updatePatientDetails(id);
-		return mapToDTO(res.getPatient());
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> fetchpatientDetails(@PathVariable long id) {
+		try {
+			res = pservice.updatePatientDetails(id);
+			return ResponseEntity.ok(mapToDTO(res.getPatient()));
+		} catch (IdException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+
+	// association method
+	@PostMapping("/associatePatientsWithAppointments")
+	public ResponseEntity<?> associate(@RequestBody patientDTO dto) {
+		patientVO vo = new patientVO();
+		vo.setFirstName(dto.getFirstName());
+		vo.setLastName(dto.getLastName());
+		vo.setPatientEmail(dto.getPatientEmail());
+		vo.setPatientPassword(dto.getPatientPassword());
+		vo.setPatientPhone(dto.getPatientPhone());
+		vo.setDob(dto.getDob());
+
+		List<appointmentsVO> list = new ArrayList<>();
+		for (appointmentsVO obj : dto.getAppointments()) {
+			appointmentsVO avo = new appointmentsVO();
+			avo.setAppointmentDate(obj.getAppointmentDate());
+			avo.setReason(obj.getReason());
+			avo.setDoctorId(obj.getDoctorId());
+			System.out.println(avo);
+			avo.setPatient(vo);
+			list.add(avo);
+		}
+		vo.setAppointments(list);
+		try {
+			res = pservice.associate(vo);
+			return ResponseEntity
+					.ok("Patient Details and Appointments added successfully" + res.getPatient().getPatientId());
+		} catch (patientException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (PhoneNumberException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (EmailException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (PasswordException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (AppointmentException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 
 	// done
 	// find by patient phone number:
 	@GetMapping("/fetchByPhoneNumber/{ph}")
-	public patientDTO findbyphone(@PathVariable("ph") String ph) {
-		res = pservice.findbyphone(ph);
-		return mapToDTO(res.getPatient());
+	public ResponseEntity<?> findbyphone(@PathVariable("ph") String ph) {
+		try {
+			res = pservice.findbyphone(ph);
+			return ResponseEntity.ok("Patient Details Fetched by ID:");
+		} catch (PhoneNumberException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 
 	// done
@@ -134,7 +204,7 @@ public class patientController {
 
 	// done
 	// Appointment by between two days:
-	@GetMapping("/patientDetailsAmongTwoDetails/{sd}/{ld}")
+	@GetMapping("/patientDetailsAmongTwoDate/{sd}/{ld}")
 	public List<patientDTO> betweenTwoDOBpat(@PathVariable("sd") LocalDate sd, @PathVariable("ld") LocalDate ld) {
 		res = pservice.betweenTwoDOBpat(sd, ld);
 		List<patientVO> list = res.getListpatient();

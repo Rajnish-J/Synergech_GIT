@@ -10,6 +10,12 @@ import com.projectDemo1.BO.patientBO;
 import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
+import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.EmailException;
+import com.projectDemo1.customExceptions.IdException;
+import com.projectDemo1.customExceptions.PasswordException;
+import com.projectDemo1.customExceptions.PhoneNumberException;
+import com.projectDemo1.customExceptions.patientException;
 
 import jakarta.transaction.Transactional;
 
@@ -26,11 +32,12 @@ public class patientService {
 
 	// insert method
 	@Transactional
-	public ResponseHandle insertPatientDetails(patientVO vo) {
-		Long flag = patientBO.insertPatientDetails(vo);
-		if (flag > 0) {
+	public ResponseHandle insertPatientDetails(patientVO vo)
+			throws patientException, PhoneNumberException, EmailException, PasswordException {
+		patientVO flag = patientBO.insertPatientDetails(vo);
+		if (flag != null) {
 			response.setSucessmessage("patient Details added successfully");
-			response.setId(flag);
+			response.setPatient(flag);
 		} else {
 			response.setFailuremessage("Error in fetching...");
 		}
@@ -39,7 +46,7 @@ public class patientService {
 
 	// find by Id method:
 	@Transactional
-	public ResponseHandle fetchById(long id) {
+	public ResponseHandle fetchById(long id) throws IdException {
 		patientVO vo = patientBO.fetchByID(id);
 		if (vo != null) {
 			response.setPatient(vo);
@@ -66,10 +73,11 @@ public class patientService {
 
 	// update method
 	@Transactional
-	public ResponseHandle updatePatientDetails(long id) {
-		boolean flag = patientBO.updatePatientDetails(id);
-		if (flag) {
+	public ResponseHandle updatePatientDetails(long id) throws IdException {
+		patientVO flag = patientBO.updatePatientDetails(id);
+		if (flag != null) {
 			response.setSucessmessage("updated the patient details successfully");
+			response.setPatient(flag);
 		} else {
 			response.setFailuremessage("error in updating patient details");
 		}
@@ -79,12 +87,13 @@ public class patientService {
 
 	// Associate method:
 	@Transactional
-	public ResponseHandle associate(patientVO vo) {
+	public ResponseHandle associate(patientVO vo)
+			throws patientException, PhoneNumberException, EmailException, PasswordException, AppointmentException {
 		patientVO inserted = patientBO.Associate(vo);
 		long id = inserted.getPatientId();
 
 		if (id > 0) {
-			response.setSucessmessage("added successfully");
+			response.setSucessmessage("Appointment added successfully");
 			response.setId(id);
 		} else {
 			response.setFailuremessage("Failed to add data");
@@ -94,7 +103,7 @@ public class patientService {
 	}
 
 	// find by patient phone number:
-	public ResponseHandle findbyphone(String ph) {
+	public ResponseHandle findbyphone(String ph) throws PhoneNumberException {
 		patientVO vo = patientBO.fetchbyPhoneNumber(ph);
 		if (vo != null) {
 			response.setPatient(vo);

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +18,11 @@ import com.projectDemo1.Entity.appointmentsVO;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.Service.patientService;
+import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.EmailException;
+import com.projectDemo1.customExceptions.IdException;
+import com.projectDemo1.customExceptions.PasswordException;
+import com.projectDemo1.customExceptions.PhoneNumberException;
 import com.projectDemo1.customExceptions.patientException;
 
 @SpringBootApplication
@@ -28,11 +35,16 @@ public class ProjectDemo1Application {
 	@Autowired
 	private ResponseHandle response;
 
+	static Logger log = Logger.getLogger(ProjectDemo1Application.class);
+
 	public static void main(String[] args) throws patientException {
 		ApplicationContext ctx = SpringApplication.run(ProjectDemo1Application.class, args);
 		Scanner sc = new Scanner(System.in);
 
 		ProjectDemo1Application ref = ctx.getBean(ProjectDemo1Application.class);
+		PropertyConfigurator.configure(
+				"C:\\Users\\Lenovo\\OneDrive\\Desktop\\GIT\\Synergech_GIT\\spring-synergic-workspace\\projectDemo-1\\src\\main\\java\\log4j\\log4j.properities");
+		log.info(" Application Started Started..");
 
 		boolean repeat = true;
 		do {
@@ -146,18 +158,33 @@ public class ProjectDemo1Application {
 		System.out.print("Enter the Password: ");
 		patient.setPatientPassword(sc.next());
 
-		response = pService.insertPatientDetails(patient);
+		try {
+			response = pService.insertPatientDetails(patient);
+		} catch (patientException e) {
+			System.err.println(e.getMessage());
+		} catch (PhoneNumberException e) {
+			System.err.println(e.getMessage());
+		} catch (EmailException e) {
+			System.err.println(e.getMessage());
+		} catch (PasswordException e) {
+			System.err.println(e.getMessage());
+		}
 
-		if (response.getId() > 0) {
-			System.out.println("Your Generated Patient ID is: " + response.getId());
+		if (response.getPatient().getPatientId() > 0) {
+			System.out.println("Your Generated Patient ID is: " + response.getPatient().getPatientId());
+
 		} else {
-			System.err.println("Failed");
+			System.out.println("Failed");
 		}
 	}
 
 	// fetch by ID:
 	public patientVO fetchByID(long id) throws patientException {
-		response = pService.fetchById(id);
+		try {
+			response = pService.fetchById(id);
+		} catch (IdException e) {
+			System.err.println(e.getMessage());
+		}
 		return response.getPatient();
 	}
 
@@ -172,14 +199,18 @@ public class ProjectDemo1Application {
 
 	// update method:
 	public void update(long id) throws patientException {
-		response = pService.updatePatientDetails(id);
+		try {
+			response = pService.updatePatientDetails(id);
+		} catch (IdException e) {
+			System.err.println(e.getMessage());
+		}
 		if (response.getSucessmessage() != null) {
 			System.out.println(response.getSucessmessage());
 		}
 	}
 
 	// associate method:
-	public void AssociatePatientwithAppointment() {
+	public void AssociatePatientwithAppointment() throws patientException {
 
 		Scanner sc = new Scanner(System.in);
 		patientVO patient = new patientVO();
@@ -231,7 +262,19 @@ public class ProjectDemo1Application {
 		}
 
 		patient.setAppointments(list);
-		response = pService.associate(patient);
+		try {
+			response = pService.associate(patient);
+		} catch (patientException e) {
+			System.err.println(e.getMessage());
+		} catch (PhoneNumberException e) {
+			System.err.println(e.getMessage());
+		} catch (EmailException e) {
+			System.err.println(e.getMessage());
+		} catch (PasswordException e) {
+			System.err.println(e.getMessage());
+		} catch (AppointmentException e) {
+			System.err.println(e.getMessage());
+		}
 
 		long id = response.getId();
 
@@ -245,8 +288,13 @@ public class ProjectDemo1Application {
 
 	// fetch by phone number
 	public void fetchbyPhone(String ph) {
-		response = pService.findbyphone(ph);
-		System.out.println(response.getPatient());
+		try {
+			response = pService.findbyphone(ph);
+			System.out.println(response.getPatient());
+		} catch (PhoneNumberException e) {
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 	// fetch today appointments
@@ -278,8 +326,9 @@ public class ProjectDemo1Application {
 	// Appointment by between two days:
 	public void betweenTwoDOBpat(LocalDate sd, LocalDate ld) {
 		response = pService.betweenTwoDOBpat(sd, ld);
-		System.out.println(response.getListpatient());
-
+		for (patientVO obj : response.getListpatient()) {
+			System.out.println(obj);
+		}
 	}
 
 	// ascending order:

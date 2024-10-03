@@ -3,11 +3,8 @@ package com.projectDemo1.DTO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Component;
-
 import com.projectDemo1.Entity.patientVO;
 
-@Component
 public class appointmentDTO {
 
 	private Long appointmentID;
