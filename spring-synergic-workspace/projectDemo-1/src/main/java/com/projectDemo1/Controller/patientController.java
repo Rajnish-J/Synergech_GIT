@@ -73,7 +73,7 @@ public class patientController {
 	public ResponseEntity<?> findBypatientId(@PathVariable("id") long id) {
 		try {
 			res = pservice.fetchById(id);
-			return ResponseEntity.ok("Patient Details Fetched by ID:");
+			return ResponseEntity.ok("Patient Details Fetched by ID:" + res.getPatient());
 		} catch (IdException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

@@ -181,13 +181,25 @@ public class patientBO {
 	}
 
 	public boolean validateID(Long id) throws IdException {
+		List<Long> pID = patientRepo.fetchPatientId();
+		System.out.println(pID);
+		boolean contains = false;
+		for (Long obj : pID) {
+			if (obj == id) {
+				contains = true;
+				break;
+			}
+		}
+		if (!contains) {
+			throw new IdException("ERROR: patient ID not exist in the database");
+		}
 		if (id == null) {
 			throw new IdException("ERROR: patient Id field could not be null");
 		} else if (id <= 0) {
 			throw new IdException("ERROR: patient ID could not be negative or zero");
 		}
 
-		return id != null && id > 0;
+		return id != null && id > 0 && pID.contains(id);
 	}
 
 	public boolean validateAppointmentCount(patientVO vo) throws AppointmentException {

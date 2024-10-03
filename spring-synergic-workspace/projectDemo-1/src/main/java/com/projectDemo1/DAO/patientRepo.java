@@ -41,4 +41,7 @@ public interface patientRepo extends JpaRepository<patientVO, Long> {
 	@Query(name = "patientVO.findAllOrderedByAttendance")
 	List<patientVO> fetchAscending();
 
+	@Query("SELECT p.patientId AS patientId FROM patientVO p ")
+	List<Long> fetchPatientId();
+
 }
