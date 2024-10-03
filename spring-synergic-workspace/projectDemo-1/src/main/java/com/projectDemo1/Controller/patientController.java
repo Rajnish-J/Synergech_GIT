@@ -17,7 +17,6 @@ import com.projectDemo1.DTO.patientDTO;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.Service.patientService;
-import com.projectDemo1.customExceptions.patientException;
 
 @RestController
 @RequestMapping("/patient")
@@ -32,7 +31,7 @@ public class patientController {
 	// need to check
 	// insert:
 	@PostMapping("/insert")
-	public patientVO insertPatient(@RequestBody patientDTO dto) throws patientException {
+	public patientVO insertPatient(@RequestBody patientDTO dto) {
 
 		// converting DTO to entity
 		patientVO vo = new patientVO();
@@ -55,7 +54,7 @@ public class patientController {
 	// done
 	// fetch by id:
 	@GetMapping("patientId/{id}")
-	public patientDTO findBypatientId(@PathVariable("id") long id) throws patientException {
+	public patientDTO findBypatientId(@PathVariable("id") long id) {
 		res = pservice.fetchById(id);
 		return mapToDTO(res.getPatient());
 	}
@@ -80,7 +79,7 @@ public class patientController {
 	// need to check
 	// update method
 	@PutMapping("update/{id}")
-	public patientDTO fetchpatientDetails(@RequestBody long id) throws patientException {
+	public patientDTO fetchpatientDetails(@RequestBody long id) {
 		res = pservice.updatePatientDetails(id);
 		return mapToDTO(res.getPatient());
 	}
