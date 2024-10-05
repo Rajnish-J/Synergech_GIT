@@ -41,7 +41,12 @@ public interface patientRepo extends JpaRepository<patientVO, Long> {
 	@Query(name = "patientVO.findAllOrderedByAttendance")
 	List<patientVO> fetchAscending();
 
+	// fetching all patients id for validation:
 	@Query("SELECT p.patientId AS patientId FROM patientVO p ")
 	List<Long> fetchPatientId();
+
+	// fetching all patients phone number for validation:
+	@Query("SELECT p.PatientPhone AS PatientPhone FROM patientVO p ")
+	List<String> fetchPatientPhoneNumber();
 
 }

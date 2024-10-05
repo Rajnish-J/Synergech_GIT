@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.DAO.patientRepo;
+import com.projectDemo1.Entity.appointmentsVO;
 import com.projectDemo1.Entity.patientVO;
+import com.projectDemo1.customExceptions.AppointmentBookingDateException;
 import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.DateOfBirthException;
 import com.projectDemo1.customExceptions.EmailException;
 import com.projectDemo1.customExceptions.IdException;
 import com.projectDemo1.customExceptions.PasswordException;
@@ -24,8 +27,8 @@ public class patientBO {
 
 	// Insert method:
 	public patientVO insertPatientDetails(patientVO vo)
-			throws patientException, PhoneNumberException, EmailException, PasswordException {
-		if (validatePatient(vo)) {
+			throws patientException, PhoneNumberException, EmailException, PasswordException, DateOfBirthException {
+		if (validatePatient(vo) && validateDOB(vo.getDob())) {
 			vo = patientRepo.save(vo);
 			return vo;
 		} else {
@@ -60,9 +63,15 @@ public class patientBO {
 	}
 
 	// associate method
-	public patientVO Associate(patientVO vo)
-			throws patientException, PhoneNumberException, EmailException, PasswordException, AppointmentException {
-		if (validatePatient(vo) && validateAppointmentCount(vo)) {
+	public patientVO Associate(patientVO vo) throws patientException, PhoneNumberException, EmailException,
+			PasswordException, AppointmentException, AppointmentBookingDateException, DateOfBirthException {
+		List<appointmentsVO> appts = vo.getAppointments();
+		for (appointmentsVO obj : appts) {
+			LocalDate d = obj.getAppointmentDate();
+			validateAppointmentBookingDate(d);
+		}
+
+		if (validatePatient(vo) && validateAppointmentCount(vo) && validateDOB(vo.getDob())) {
 			patientVO insert = patientRepo.save(vo);
 			return insert;
 		}
@@ -71,7 +80,7 @@ public class patientBO {
 
 	// fetch patient by phone number:
 	public patientVO fetchbyPhoneNumber(String ph) throws PhoneNumberException {
-		if (validatePhoneNumber(ph)) {
+		if (validatePhoneNumber(ph) && checkPhOnDB(ph)) {
 			patientVO vo = patientRepo.findByPhoneNumber(ph);
 			return vo;
 		}
@@ -91,9 +100,13 @@ public class patientBO {
 	}
 
 	// fetch first name and last name:
-	public PatientProjection findname(long n) {
-		PatientProjection po = patientRepo.findNameOfPatientById(n);
+	public PatientProjection findname(long n) throws IdException {
+		PatientProjection po = null;
+		if (validateID(n)) {
+			po = patientRepo.findNameOfPatientById(n);
+		}
 		return po;
+
 	}
 
 	// Appointment by between two days:
@@ -121,6 +134,24 @@ public class patientBO {
 		return true;
 	}
 
+	// checks for the phone number that exists in the database
+	public boolean checkPhOnDB(String phoneNumber) throws PhoneNumberException {
+		List<String> checkPhone = patientRepo.fetchPatientPhoneNumber();
+		boolean contains = false;
+		for (String obj : checkPhone) {
+			if (phoneNumber.equals(obj)) {
+				contains = true;
+				break;
+			}
+		}
+		if (!contains) {
+			throw new PhoneNumberException("ERROR: patient Phone number not exist in the database");
+		}
+		return true;
+
+	}
+
+	// validation for email
 	public boolean validateEmail(String email) throws EmailException {
 		if (email == null || email.isEmpty()) {
 			throw new EmailException("ERROR: Email field could not be empty");
@@ -140,6 +171,7 @@ public class patientBO {
 		return atCount == 1;
 	}
 
+	// validations for password
 	public boolean validatePassword(String password) throws patientException, PasswordException {
 
 		if (password == null) {
@@ -180,9 +212,10 @@ public class patientBO {
 		return hasUppercase && hasLowercase && hasDigit && hasSpecial;
 	}
 
+	// checks the ID Checking
 	public boolean validateID(Long id) throws IdException {
 		List<Long> pID = patientRepo.fetchPatientId();
-		System.out.println(pID);
+
 		boolean contains = false;
 		for (Long obj : pID) {
 			if (obj == id) {
@@ -202,11 +235,35 @@ public class patientBO {
 		return id != null && id > 0 && pID.contains(id);
 	}
 
+	// checks if the list of appointments could be greater than zero
 	public boolean validateAppointmentCount(patientVO vo) throws AppointmentException {
 		if (vo.getAppointments().size() <= 0) {
 			throw new AppointmentException("ERROR: Appointments could not be zero..");
 		}
 		return vo.getAppointments().size() > 0;
+	}
+
+	// checks for the new appointments could not be in the past
+	public boolean validateAppointmentBookingDate(LocalDate ld)
+			throws AppointmentException, AppointmentBookingDateException {
+
+		LocalDate today = LocalDate.now();
+
+		if (!(ld.isAfter(today) || ld.isEqual(today))) {
+			throw new AppointmentBookingDateException("Appointment booking date could not be in the past");
+		}
+		return true;
+
+	}
+
+	// checks for the DOB could not be in the future
+	public boolean validateDOB(LocalDate ld) throws DateOfBirthException {
+		LocalDate today = LocalDate.now();
+
+		if (!(ld.isBefore(today) || ld.isEqual(today))) {
+			throw new DateOfBirthException("date of birth could not be in the future");
+		}
+		return true;
 	}
 
 	// Main validation method to validate a patient object:

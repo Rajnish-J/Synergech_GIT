@@ -10,7 +10,9 @@ import com.projectDemo1.BO.patientBO;
 import com.projectDemo1.DAO.PatientProjection;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
+import com.projectDemo1.customExceptions.AppointmentBookingDateException;
 import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.DateOfBirthException;
 import com.projectDemo1.customExceptions.EmailException;
 import com.projectDemo1.customExceptions.IdException;
 import com.projectDemo1.customExceptions.PasswordException;
@@ -24,16 +26,13 @@ public class patientService {
 	@Autowired
 	private patientBO patientBO;
 
-//	@Autowired
-//	private patientDTO patientDTO;
-
 	@Autowired
 	private ResponseHandle response;
 
 	// insert method
 	@Transactional
 	public ResponseHandle insertPatientDetails(patientVO vo)
-			throws patientException, PhoneNumberException, EmailException, PasswordException {
+			throws patientException, PhoneNumberException, EmailException, PasswordException, DateOfBirthException {
 		patientVO flag = patientBO.insertPatientDetails(vo);
 		if (flag != null) {
 			response.setSucessmessage("patient Details added successfully");
@@ -87,14 +86,13 @@ public class patientService {
 
 	// Associate method:
 	@Transactional
-	public ResponseHandle associate(patientVO vo)
-			throws patientException, PhoneNumberException, EmailException, PasswordException, AppointmentException {
+	public ResponseHandle associate(patientVO vo) throws patientException, PhoneNumberException, EmailException,
+			PasswordException, AppointmentException, AppointmentBookingDateException, DateOfBirthException {
 		patientVO inserted = patientBO.Associate(vo);
-		long id = inserted.getPatientId();
 
-		if (id > 0) {
+		if (inserted != null) {
 			response.setSucessmessage("Appointment added successfully");
-			response.setId(id);
+			response.setId(inserted.getPatientId());
 		} else {
 			response.setFailuremessage("Failed to add data");
 		}
@@ -122,7 +120,7 @@ public class patientService {
 			response.setListpatient(list);
 			response.setSucessmessage("fetching the appoinment details with the patient ID is successfully executed");
 		} else {
-			response.setFailuremessage("Error in fetching...");
+			response.setFailuremessage("There is no appointments on the day...");
 		}
 		return response;
 	}
@@ -134,13 +132,13 @@ public class patientService {
 			response.setListpatient(list);
 			response.setSucessmessage("fetching the appoinment details with the patient ID is successfully executed");
 		} else {
-			response.setFailuremessage("Error in fetching...");
+			response.setFailuremessage("There are no patients having more than the number you provided...");
 		}
 		return response;
 	}
 
 	// fetch first name and last name:
-	public ResponseHandle findName(long n) {
+	public ResponseHandle findName(long n) throws IdException {
 		PatientProjection p = patientBO.findname(n);
 		if (p != null) {
 			response.setPro(p);

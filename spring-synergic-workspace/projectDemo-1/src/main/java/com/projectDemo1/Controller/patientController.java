@@ -20,7 +20,9 @@ import com.projectDemo1.Entity.appointmentsVO;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.Service.patientService;
+import com.projectDemo1.customExceptions.AppointmentBookingDateException;
 import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.DateOfBirthException;
 import com.projectDemo1.customExceptions.EmailException;
 import com.projectDemo1.customExceptions.IdException;
 import com.projectDemo1.customExceptions.PasswordException;
@@ -63,6 +65,8 @@ public class patientController {
 		} catch (EmailException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		} catch (PasswordException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (DateOfBirthException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 
@@ -145,6 +149,10 @@ public class patientController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		} catch (AppointmentException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (AppointmentBookingDateException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch (DateOfBirthException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 
 	}
@@ -197,9 +205,14 @@ public class patientController {
 	// done
 	// fetch first name and last name:
 	@GetMapping("/findFirstandLastNamebyPatientId/{id}")
-	public String findName(@PathVariable("id") long n) {
-		res = pservice.findName(n);
-		return "First name: " + res.getPro().getFirstName() + " Second name: " + res.getPro().getLastName();
+	public ResponseEntity<String> findName(@PathVariable("id") long n) {
+		try {
+			res = pservice.findName(n);
+			return ResponseEntity
+					.ok("First name: " + res.getPro().getFirstName() + " Second name: " + res.getPro().getLastName());
+		} catch (IdException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	// done

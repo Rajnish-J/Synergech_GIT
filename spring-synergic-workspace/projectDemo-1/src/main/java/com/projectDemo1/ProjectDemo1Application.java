@@ -18,7 +18,9 @@ import com.projectDemo1.Entity.appointmentsVO;
 import com.projectDemo1.Entity.patientVO;
 import com.projectDemo1.Response.ResponseHandle;
 import com.projectDemo1.Service.patientService;
+import com.projectDemo1.customExceptions.AppointmentBookingDateException;
 import com.projectDemo1.customExceptions.AppointmentException;
+import com.projectDemo1.customExceptions.DateOfBirthException;
 import com.projectDemo1.customExceptions.EmailException;
 import com.projectDemo1.customExceptions.IdException;
 import com.projectDemo1.customExceptions.PasswordException;
@@ -42,6 +44,7 @@ public class ProjectDemo1Application {
 		Scanner sc = new Scanner(System.in);
 
 		ProjectDemo1Application ref = ctx.getBean(ProjectDemo1Application.class);
+
 		PropertyConfigurator.configure(
 				"C:\\Users\\Lenovo\\OneDrive\\Desktop\\GIT\\Synergech_GIT\\spring-synergic-workspace\\projectDemo-1\\src\\main\\java\\log4j\\log4j.properities");
 		log.info(" Application Started Started..");
@@ -80,7 +83,7 @@ public class ProjectDemo1Application {
 				break;
 			}
 			case 6: {
-				System.out.print("Enter the patient phone number to fetch patient ID: ");
+				System.out.print("Enter the patient phone number to fetch patient Details: ");
 				String ph = sc.next();
 				ref.fetchbyPhone(ph);
 				break;
@@ -167,6 +170,8 @@ public class ProjectDemo1Application {
 		} catch (EmailException e) {
 			System.err.println(e.getMessage());
 		} catch (PasswordException e) {
+			System.err.println(e.getMessage());
+		} catch (DateOfBirthException e) {
 			System.err.println(e.getMessage());
 		}
 
@@ -274,6 +279,10 @@ public class ProjectDemo1Application {
 			System.err.println(e.getMessage());
 		} catch (AppointmentException e) {
 			System.err.println(e.getMessage());
+		} catch (AppointmentBookingDateException e) {
+			System.err.println(e.getMessage());
+		} catch (DateOfBirthException e) {
+			System.err.println(e.getMessage());
 		}
 
 		long id = response.getId();
@@ -318,9 +327,14 @@ public class ProjectDemo1Application {
 
 	// fetch first name and last name:
 	public void findName(long id) {
-		response = pService.findName(id);
-		System.out.println(
-				"First name: " + response.getPro().getFirstName() + " Second name: " + response.getPro().getLastName());
+		try {
+			response = pService.findName(id);
+			System.out.println("First name: " + response.getPro().getFirstName() + " Second name: "
+					+ response.getPro().getLastName());
+		} catch (IdException e) {
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 	// Appointment by between two days:

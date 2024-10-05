@@ -9,6 +9,7 @@ import com.projectDemo1.Entity.patientVO;
 
 @Component
 public class ResponseHandle {
+
 	private String Sucessmessage;
 	private String failuremessage;
 	private long id;
