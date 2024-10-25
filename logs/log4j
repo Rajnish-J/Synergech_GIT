@@ -22,3 +22,59 @@
 2024-10-05 15:01:01 INFO  ProjectDemo1Application:50 -  Application Started Started..
 2024-10-05 15:02:06 INFO  ProjectDemo1Application:50 -  Application Started Started..
 2024-10-05 15:04:37 INFO  ProjectDemo1Application:50 -  Application Started Started..
+2024-10-06 11:17:41 INFO  ProjectDemo1Application:52 -  Application Started Started..
+2024-10-06 14:32:28 INFO  ProjectDemo1Application:51 -  Application Started Started..
+2024-10-06 16:21:06 INFO  ProjectDemo1Application:50 -  Application Started Started..
+2024-10-06 16:21:06 INFO  ProjectDemo1Application:52 -  Application Started Started...
+2024-10-06 16:21:18 INFO  ProjectDemo1Application:63 - Patient chooses create account option...
+2024-10-06 16:21:55 INFO  ProjectDemo1Application:50 -  Application Started Started..
+2024-10-06 16:21:55 INFO  ProjectDemo1Application:52 -  Application Started Started...
+2024-10-06 16:21:59 INFO  ProjectDemo1Application:131 - patient chooses fetching all the patient details in ascending order...
+2024-10-06 16:30:20 INFO  ProjectDemo1Application:50 -  Application Started Started..
+2024-10-06 16:30:20 INFO  ProjectDemo1Application:52 -  Application Started Started...
+2024-10-06 16:30:25 INFO  ProjectDemo1Application:68 - patient chooses fetch Details by their ID...
+2024-10-06 16:30:26 ERROR ProjectDemo1Application:208 - ID not found in the DateBase
+com.projectDemo1.customExceptions.IdException: ERROR: patient ID not exist in the database
+	at com.projectDemo1.BO.patientBO.validateID(patientBO.java:227)
+	at com.projectDemo1.BO.patientBO.fetchByID(patientBO.java:41)
+	at com.projectDemo1.Service.patientService.fetchById(patientService.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.projectDemo1.Service.patientService$$SpringCGLIB$$0.fetchById(<generated>)
+	at com.projectDemo1.ProjectDemo1Application.fetchByID(ProjectDemo1Application.java:206)
+	at com.projectDemo1.ProjectDemo1Application.main(ProjectDemo1Application.java:71)
+2024-10-06 16:32:19 INFO  ProjectDemo1Application:50 -  Application Started Started..
+2024-10-06 16:32:19 INFO  ProjectDemo1Application:52 -  Application Started Started...
+2024-10-06 16:32:22 INFO  ProjectDemo1Application:68 - patient chooses fetch Details by their ID...
+2024-10-06 16:32:25 ERROR ProjectDemo1Application:208 - ID not found in the DateBase
+com.projectDemo1.customExceptions.IdException: ERROR: patient ID not exist in the database
+	at com.projectDemo1.BO.patientBO.validateID(patientBO.java:227)
+	at com.projectDemo1.BO.patientBO.fetchByID(patientBO.java:41)
+	at com.projectDemo1.Service.patientService.fetchById(patientService.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.projectDemo1.Service.patientService$$SpringCGLIB$$0.fetchById(<generated>)
+	at com.projectDemo1.ProjectDemo1Application.fetchByID(ProjectDemo1Application.java:206)
+	at com.projectDemo1.ProjectDemo1Application.main(ProjectDemo1Application.java:71)
