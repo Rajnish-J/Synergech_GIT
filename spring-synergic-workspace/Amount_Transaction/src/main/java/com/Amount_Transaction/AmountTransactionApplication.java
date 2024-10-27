@@ -2,6 +2,8 @@ package com.Amount_Transaction;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,13 @@ import org.springframework.context.ApplicationContext;
 import com.Amount_Transaction.Entity.AccountVO;
 import com.Amount_Transaction.Entity.UserVO;
 import com.Amount_Transaction.Exception.InValidAccountNumber;
+import com.Amount_Transaction.Exception.InValidDateException;
 import com.Amount_Transaction.Exception.InsufficientBalance;
+import com.Amount_Transaction.Exception.InvalidEmailException;
+import com.Amount_Transaction.Exception.NameException;
+import com.Amount_Transaction.Exception.PasswordException;
+import com.Amount_Transaction.Response.AccountResponseHandle;
+import com.Amount_Transaction.Response.UserResponseHandle;
 import com.Amount_Transaction.Service.AccountService;
 import com.Amount_Transaction.Service.UserService;
 
@@ -25,6 +33,12 @@ public class AmountTransactionApplication {
 	@Autowired
 	private AccountService accSer;
 
+	@Autowired
+	private UserResponseHandle uRes;
+
+	@Autowired
+	private AccountResponseHandle aRes;
+
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(AmountTransactionApplication.class, args);
 
@@ -36,7 +50,9 @@ public class AmountTransactionApplication {
 		while (flag) {
 
 			System.out.println("MENU");
-			System.out.println("1.insert User\n2.insert Account\n3.Amount Transfer\n4.exit");
+			System.out.println(
+					"1. insert User\n2. insert Account\n3. Amount Transfer\n4. Bulk Insert User\n5. Minimum account balance users"
+							+ "\n6. Maximum account balance users\n7.exit");
 			System.out.println("Enter Your Option :");
 
 			int option = scanner.nextInt();
@@ -56,6 +72,15 @@ public class AmountTransactionApplication {
 				break;
 			}
 			case 4: {
+				app.bulkInsert();
+			}
+			case 5: {
+				app.minAccs();
+			}
+			case 6: {
+				app.maxAccs();
+			}
+			case 7: {
 				flag = false;
 				break;
 			}
@@ -73,10 +98,10 @@ public class AmountTransactionApplication {
 	private void amountTransfer() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Sender Account Number :");
-		long senderAccountNo = sc.nextLong();
+		String senderAccountNo = sc.next();
 
 		System.out.println("Enter Receiver Account Number :");
-		long receiverAccountNo = sc.nextLong();
+		String receiverAccountNo = sc.next();
 
 		System.out.println("Enter the Account to Transfer :");
 		double amount = sc.nextDouble();
@@ -97,7 +122,7 @@ public class AmountTransactionApplication {
 		AccountVO accountObj = new AccountVO();
 
 		System.out.println("Enter the Account Number :");
-		accountObj.setAccountNumber(sc.nextLong());
+		accountObj.setAccountNumber(sc.next());
 
 		System.out.println("Enter the Branch Code :");
 		accountObj.setBranchCode(sc.next());
@@ -136,8 +161,80 @@ public class AmountTransactionApplication {
 		System.out.println("Enter the Password :");
 		userobj.setUserPassword(sc.next());
 
-		userSer.insertUser(userobj);
+		try {
+			userSer.insertUser(userobj);
+		} catch (InValidDateException e) {
+			e.getMessage();
+		} catch (NameException e) {
+			e.getMessage();
+		} catch (InvalidEmailException e) {
+			e.getMessage();
+		} catch (PasswordException e) {
+			e.getMessage();
+		}
 
+	}
+
+	private void bulkInsert() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number to add Number of user accounts: ");
+		long num = sc.nextLong();
+
+		List<UserVO> list = new ArrayList<>();
+
+		for (int i = 0; i <= num; i++) {
+			UserVO user = new UserVO();
+			user.setUserName("user");
+			user.setUserEmail("user" + i + "gmail.com");
+			user.setUserPassword("Pass@word" + i);
+			user.setDob(LocalDate.of(1989, 1, 1));
+
+			list.add(user);
+		}
+
+		try {
+			uRes = userSer.bulkInsert(list);
+		} catch (InValidDateException e) {
+			e.getMessage();
+		} catch (NameException e) {
+			e.getMessage();
+		} catch (InvalidEmailException e) {
+			e.getMessage();
+		} catch (PasswordException e) {
+			e.getMessage();
+		}
+
+		if (uRes.getSucessMessage() != null) {
+			System.out.println(uRes.getSucessMessage());
+		} else {
+			System.out.println(uRes.getFailureMessage());
+		}
+	}
+
+	public void minAccs() {
+		aRes = accSer.minAccs();
+
+		if (aRes.getSucessMessage() != null) {
+			System.out.println(aRes.getSucessMessage());
+			for (AccountVO obj : aRes.getAccList()) {
+				System.out.println(obj);
+			}
+		} else {
+			System.out.println(aRes.getFailureMessage());
+		}
+	}
+
+	public void maxAccs() {
+		aRes = accSer.maxAccs();
+
+		if (aRes.getSucessMessage() != null) {
+			System.out.println(aRes.getSucessMessage());
+			for (AccountVO obj : aRes.getAccList()) {
+				System.out.println(obj);
+			}
+		} else {
+			System.out.println(aRes.getFailureMessage());
+		}
 	}
 
 }

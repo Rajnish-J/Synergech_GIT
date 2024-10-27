@@ -29,7 +29,7 @@ public class AccountVO {
 	private long id;
 
 	@Column(name = "account_number", nullable = false, unique = true, length = 20)
-	private long accountNumber;
+	private String accountNumber;
 
 	@Column(name = "branch_code", nullable = false, length = 10)
 	private String branchCode;
@@ -59,11 +59,11 @@ public class AccountVO {
 		this.id = id;
 	}
 
-	public long getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(long accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 

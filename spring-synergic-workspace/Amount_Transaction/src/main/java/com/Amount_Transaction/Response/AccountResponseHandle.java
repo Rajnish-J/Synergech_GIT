@@ -1,5 +1,7 @@
 package com.Amount_Transaction.Response;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.Amount_Transaction.Entity.AccountVO;
@@ -15,6 +17,7 @@ public class AccountResponseHandle {
 	private AccountVO senderAcc;
 	private AccountVO receiverAcc;
 	private AccountVO accVO;
+	private List<AccountVO> accList;
 
 	public String getSucessMessage() {
 		return sucessMessage;
@@ -70,6 +73,14 @@ public class AccountResponseHandle {
 
 	public void setAccVO(AccountVO accVO) {
 		this.accVO = accVO;
+	}
+
+	public List<AccountVO> getAccList() {
+		return accList;
+	}
+
+	public void setAccList(List<AccountVO> accList) {
+		this.accList = accList;
 	}
 
 }

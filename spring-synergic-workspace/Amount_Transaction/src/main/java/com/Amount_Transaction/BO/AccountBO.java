@@ -1,5 +1,7 @@
 package com.Amount_Transaction.BO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +25,15 @@ public class AccountBO {
 		return vo;
 	}
 
-	public AccountResponseHandle transferAmount(long senderAccountNo, long receiverAccountNo, double amount)
+	public AccountResponseHandle transferAmount(String senderAccountNo, String receiverAccountNo, double amount)
 			throws InsufficientBalance, InValidAccountNumber {
 
 		AccountVO senderAccount = validAccount(senderAccountNo);
 		double senderbalance = senderAccount.getBalance();
 		validbalance(senderbalance, amount);
 		AccountVO receiverAccount = validAccount(receiverAccountNo);
-// sender balance reduced :
+
+		// sender balance reduced :
 		double senderBalance = senderAccount.getBalance() - amount;
 		senderAccount.setBalance(senderBalance);
 		accRepo.save(senderAccount);
@@ -45,8 +48,18 @@ public class AccountBO {
 
 	}
 
+	public List<AccountVO> minAccs() {
+		return (accRepo.findAccountWithMinBalance());
+
+	}
+
+	public List<AccountVO> maxAccs() {
+		return (accRepo.findAccountWithMaxBalance());
+
+	}
+
 	// Validations
-	private AccountVO validAccount(long senderAccountNo) throws InValidAccountNumber {
+	private AccountVO validAccount(String senderAccountNo) throws InValidAccountNumber {
 		AccountVO account = accRepo.findByAccountNumber(senderAccountNo);
 		if (account == null) {
 			throw new InValidAccountNumber("Account not exit in the DataBase");

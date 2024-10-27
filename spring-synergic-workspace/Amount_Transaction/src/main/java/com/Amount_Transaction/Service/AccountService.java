@@ -1,5 +1,7 @@
 package com.Amount_Transaction.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class AccountService {
 		return accRes;
 	}
 
-	public AccountResponseHandle transferAmount(long senderAccountNo, long receiverAccountNo, double amount)
+	public AccountResponseHandle transferAmount(String senderAccountNo, String receiverAccountNo, double amount)
 			throws InsufficientBalance, InValidAccountNumber {
 		AccountResponseHandle flag = accBO.transferAmount(senderAccountNo, receiverAccountNo, amount);
 		if (flag.getSenderAcc() != null && flag.getReceiverAcc() != null) {
@@ -39,6 +41,30 @@ public class AccountService {
 		} else {
 			accRes.setFailureMessage("Operation failed");
 		}
+		return accRes;
+	}
+
+	public AccountResponseHandle minAccs() {
+		List<AccountVO> list = accBO.minAccs();
+		if (list.size() > 0) {
+			accRes.setFailureMessage("Records fetched successfully");
+			accRes.setAccList(list);
+		} else {
+			accRes.setFailureMessage("Error in fetching");
+		}
+
+		return accRes;
+	}
+
+	public AccountResponseHandle maxAccs() {
+		List<AccountVO> list = accBO.maxAccs();
+		if (list.size() > 0) {
+			accRes.setFailureMessage("Records fetched successfully");
+			accRes.setAccList(list);
+		} else {
+			accRes.setFailureMessage("Error in fetching");
+		}
+
 		return accRes;
 	}
 
