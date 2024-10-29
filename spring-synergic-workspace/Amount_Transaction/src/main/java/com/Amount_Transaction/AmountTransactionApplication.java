@@ -73,12 +73,15 @@ public class AmountTransactionApplication {
 			}
 			case 4: {
 				app.bulkInsert();
+				break;
 			}
 			case 5: {
 				app.minAccs();
+				break;
 			}
 			case 6: {
 				app.maxAccs();
+				break;
 			}
 			case 7: {
 				flag = false;
@@ -182,7 +185,7 @@ public class AmountTransactionApplication {
 
 		List<UserVO> list = new ArrayList<>();
 
-		for (int i = 0; i <= num; i++) {
+		for (int i = 0; i < num; i++) {
 			UserVO user = new UserVO();
 			user.setUserName("user");
 			user.setUserEmail("user" + i + "gmail.com");
@@ -206,6 +209,9 @@ public class AmountTransactionApplication {
 
 		if (uRes.getSucessMessage() != null) {
 			System.out.println(uRes.getSucessMessage());
+			for (UserVO obj : uRes.getUserList()) {
+				System.out.println(obj.getId());
+			}
 		} else {
 			System.out.println(uRes.getFailureMessage());
 		}

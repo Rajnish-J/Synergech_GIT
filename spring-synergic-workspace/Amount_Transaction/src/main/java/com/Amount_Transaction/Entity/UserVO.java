@@ -33,7 +33,7 @@ public class UserVO {
 	@Column(name = "name", nullable = false)
 	private String userName;
 
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "email", nullable = false)
 	private String userEmail;
 
 	@Column(name = "password", nullable = false)

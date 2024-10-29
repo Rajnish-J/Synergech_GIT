@@ -32,9 +32,17 @@ public class UserBO {
 		for (UserVO obj : list) {
 			validateUser(obj);
 		}
-		userRepo.saveAll(list);
+		userRepo.saveAll(list);// Save list and capture result
+		List<UserVO> savedUsers = userRepo.saveAll(list);
 
-		return "Added successfully";
+		// Check if saveAll worked correctly
+		if (savedUsers != null && !savedUsers.isEmpty()) {
+			System.out.println("Users saved successfully: " + savedUsers.size()); // Debugging statement
+			return "Added successfully";
+		} else {
+			System.out.println("Failed to save users."); // Debugging statement
+			return null;
+		}
 
 	}
 

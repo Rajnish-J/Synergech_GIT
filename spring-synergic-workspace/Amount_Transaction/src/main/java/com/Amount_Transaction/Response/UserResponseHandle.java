@@ -15,7 +15,7 @@ public class UserResponseHandle {
 	private long id;
 	private UserVO userVO;
 	private List<UserVO> userList;
-	private List<AccountVO> list;
+	private List<AccountVO> accList;
 
 	public String getSucessMessage() {
 		return sucessMessage;
@@ -50,11 +50,11 @@ public class UserResponseHandle {
 	}
 
 	public List<AccountVO> getList() {
-		return list;
+		return accList;
 	}
 
 	public void setList(List<AccountVO> list) {
-		this.list = list;
+		this.accList = list;
 	}
 
 	public List<UserVO> getUserList() {
