@@ -34,9 +34,16 @@ public class UserService {
 		return userRes;
 	}
 
-	public void bulkInsert(List<UserVO> userList)
+	public UserResponseHandle bulkInsert(List<UserVO> userList)
 			throws InValidDateException, NameException, InvalidEmailException, PasswordException {
-		userBO.bulkInsert(userList);
+		String str = userBO.bulkInsert(userList);
+		if (str != null) {
+			userRes.setSucessMessage("All the records added successfully");
+			userRes.setUserList(userList);
+		} else {
+			userRes.setFailureMessage("Error in adding all the details");
+		}
+		return userRes;
 
 	}
 

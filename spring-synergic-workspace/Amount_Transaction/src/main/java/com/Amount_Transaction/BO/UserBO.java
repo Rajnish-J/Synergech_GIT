@@ -26,13 +26,14 @@ public class UserBO {
 		return vo;
 	}
 
-	public void bulkInsert(List<UserVO> userList)
+	public String bulkInsert(List<UserVO> userList)
 			throws InValidDateException, NameException, InvalidEmailException, PasswordException {
 		System.out.println("Bo layer triggered");
-//		for (UserVO user : userList) {
-//			validateUser(user);
-//		}
+		for (UserVO user : userList) {
+			validateUser(user);
+		}
 		userRepo.saveAll(userList);
+		return "succes";
 	}
 
 	private boolean vaildateDate(LocalDate dob) throws InValidDateException {
@@ -92,13 +93,13 @@ public class UserBO {
 			throw new NameException("ERROR : Invalid Name :" + name);
 		}
 
-		for (int i = 0; i < name.length(); i++) {
-			char c = name.charAt(i);
-			if (!Character.isAlphabetic(c) && !Character.isWhitespace(c)) {
-				throw new NameException(
-						"ERROR: Invalid Name: " + name + ". Name must contain only letters and spaces.");
-			}
-		}
+//		for (int i = 0; i < name.length(); i++) {
+//			char c = name.charAt(i);
+//			if (!Character.isAlphabetic(c) && !Character.isWhitespace(c)) {
+//				throw new NameException(
+//						"ERROR: Invalid Name: " + name + ". Name must contain only letters and spaces.");
+//			}
+//		}
 
 		return true;
 	}

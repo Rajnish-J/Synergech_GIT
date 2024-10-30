@@ -1,7 +1,6 @@
 package com.Amount_Transaction;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.Amount_Transaction.BO.UserBO;
 import com.Amount_Transaction.Entity.AccountVO;
@@ -27,6 +27,7 @@ import com.Amount_Transaction.Service.AccountService;
 import com.Amount_Transaction.Service.UserService;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class AmountTransactionApplication {
 
 	@Autowired
@@ -196,14 +197,12 @@ public class AmountTransactionApplication {
 			user.setUserEmail("user" + i + "@gmail.com");
 			user.setUserPassword("Pass@word" + i);
 			user.setDob(LocalDate.of(1989, 1, 1));
-			user.setCreatedAt(LocalDateTime.now());
-			user.setUpdatedAt(LocalDateTime.now());
 
 			userList.add(user);
 		}
 
 		try {
-			userSer.bulkInsert(userList);
+			uRes = userSer.bulkInsert(userList);
 		} catch (InValidDateException e) {
 			System.out.println(e.getMessage());
 		} catch (NameException e) {
@@ -214,14 +213,14 @@ public class AmountTransactionApplication {
 			System.out.println(e.getMessage());
 		}
 
-//		if (uRes.getSucessMessage() != null) {
-//			System.out.println(uRes.getSucessMessage());
-//			for (UserVO user : uRes.getUserList()) {
-//				System.out.println("User ID: " + user.getId());
-//			}
-//		} else {
-//			System.out.println(uRes.getFailureMessage());
-//		}
+		if (uRes.getSucessMessage() != null) {
+			System.out.println(uRes.getSucessMessage());
+			for (UserVO user : uRes.getUserList()) {
+				System.out.println("User ID: " + user.getId());
+			}
+		} else {
+			System.out.println(uRes.getFailureMessage());
+		}
 
 	}
 
