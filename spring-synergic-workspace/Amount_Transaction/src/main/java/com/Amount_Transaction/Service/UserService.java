@@ -34,16 +34,10 @@ public class UserService {
 		return userRes;
 	}
 
-	public UserResponseHandle bulkInsert(List<UserVO> list)
+	public void bulkInsert(List<UserVO> userList)
 			throws InValidDateException, NameException, InvalidEmailException, PasswordException {
-		String str = userBO.bulkInsert(list);
-		if (str != null) {
-			userRes.setSucessMessage("All the User accounts created");
-			userRes.setUserList(list);
-		} else {
-			userRes.setFailureMessage("Error in adding user accounts");
-		}
-		return userRes;
+		userBO.bulkInsert(userList);
+
 	}
 
 }

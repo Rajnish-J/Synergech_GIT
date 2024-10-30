@@ -1,6 +1,7 @@
 package com.Amount_Transaction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import com.Amount_Transaction.BO.UserBO;
 import com.Amount_Transaction.Entity.AccountVO;
 import com.Amount_Transaction.Entity.UserVO;
 import com.Amount_Transaction.Exception.InValidAccountNumber;
@@ -32,6 +34,9 @@ public class AmountTransactionApplication {
 
 	@Autowired
 	private AccountService accSer;
+
+	@Autowired
+	private UserBO userBO;
 
 	@Autowired
 	private UserResponseHandle uRes;
@@ -180,41 +185,44 @@ public class AmountTransactionApplication {
 
 	private void bulkInsert() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the number to add Number of user accounts: ");
+		System.out.println("Enter the number of user accounts to add: ");
 		long num = sc.nextLong();
 
-		List<UserVO> list = new ArrayList<>();
+		List<UserVO> userList = new ArrayList<>();
 
-		for (int i = 0; i < num; i++) {
+		for (int i = 1; i <= num; i++) {
 			UserVO user = new UserVO();
-			user.setUserName("user");
-			user.setUserEmail("user" + i + "gmail.com");
+			user.setUserName("user" + i);
+			user.setUserEmail("user" + i + "@gmail.com");
 			user.setUserPassword("Pass@word" + i);
 			user.setDob(LocalDate.of(1989, 1, 1));
+			user.setCreatedAt(LocalDateTime.now());
+			user.setUpdatedAt(LocalDateTime.now());
 
-			list.add(user);
+			userList.add(user);
 		}
 
 		try {
-			uRes = userSer.bulkInsert(list);
+			userSer.bulkInsert(userList);
 		} catch (InValidDateException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		} catch (NameException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		} catch (InvalidEmailException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		} catch (PasswordException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 
-		if (uRes.getSucessMessage() != null) {
-			System.out.println(uRes.getSucessMessage());
-			for (UserVO obj : uRes.getUserList()) {
-				System.out.println(obj.getId());
-			}
-		} else {
-			System.out.println(uRes.getFailureMessage());
-		}
+//		if (uRes.getSucessMessage() != null) {
+//			System.out.println(uRes.getSucessMessage());
+//			for (UserVO user : uRes.getUserList()) {
+//				System.out.println("User ID: " + user.getId());
+//			}
+//		} else {
+//			System.out.println(uRes.getFailureMessage());
+//		}
+
 	}
 
 	public void minAccs() {

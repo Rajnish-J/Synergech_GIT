@@ -46,12 +46,13 @@ public class UserVO {
 	private int age;
 
 	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
-	@Column(name = "updated_at", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

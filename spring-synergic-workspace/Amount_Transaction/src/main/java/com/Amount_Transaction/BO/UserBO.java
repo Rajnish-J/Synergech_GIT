@@ -26,24 +26,13 @@ public class UserBO {
 		return vo;
 	}
 
-	public String bulkInsert(List<UserVO> list)
+	public void bulkInsert(List<UserVO> userList)
 			throws InValidDateException, NameException, InvalidEmailException, PasswordException {
-
-		for (UserVO obj : list) {
-			validateUser(obj);
-		}
-		userRepo.saveAll(list);// Save list and capture result
-		List<UserVO> savedUsers = userRepo.saveAll(list);
-
-		// Check if saveAll worked correctly
-		if (savedUsers != null && !savedUsers.isEmpty()) {
-			System.out.println("Users saved successfully: " + savedUsers.size()); // Debugging statement
-			return "Added successfully";
-		} else {
-			System.out.println("Failed to save users."); // Debugging statement
-			return null;
-		}
-
+		System.out.println("Bo layer triggered");
+//		for (UserVO user : userList) {
+//			validateUser(user);
+//		}
+		userRepo.saveAll(userList);
 	}
 
 	private boolean vaildateDate(LocalDate dob) throws InValidDateException {
